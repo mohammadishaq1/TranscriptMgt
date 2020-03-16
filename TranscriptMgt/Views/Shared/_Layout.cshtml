@@ -1,51 +1,118 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Sessions", "Index", "SessionTables")</li>
-                    <li>@Html.ActionLink("Departments", "Index", "DepartmentTables")</li>
-                    <li>@Html.ActionLink("Program", "Index", "ProgrammeTables")</li>
-                    <li>@Html.ActionLink("Semester types", "Index", "SemesterTypeTables")</li>
-                    <li>@Html.ActionLink("Semesters", "Index", "SemesterTables")</li>
-                    <li>@Html.ActionLink("Subjects", "Index", "SubjectSemesterTables")</li>
-                    <li>@Html.ActionLink("Program semesters setting", "Index", "ProgrammeSemestersTables")</li>
-                    <li>@Html.ActionLink("Semester subjects setting", "Index", "SubjectSemesterTables")</li>
-                    <li>@Html.ActionLink("Students", "Index", "StudentTables")</li>
-                    <li>@Html.ActionLink("Marks sheet", "Index", "MarkSheetTables")</li>
+    @*<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
 
-                </ul>
+    <meta charset="utf-8">
+    <title>Transcript App</title>
+    <meta name="description" content="">
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="shortcut icon" href="img/favicon.png"> -->
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet'>
+
+    <!-- Syntax Highlighter -->
+    <link rel="stylesheet" type="text/css" href="~/Content/AdminTemplate/syntax-highlighter/styles/shCore.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/Content/AdminTemplate/syntax-highlighter/styles/shThemeDefault.css" media="all">
+
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="~/Content/AdminTemplate/css/font-awesome.min.css">
+    <!-- Normalize/Reset CSS-->
+    <link rel="stylesheet" href="~/Content/AdminTemplate/css/normalize.min.css">
+    <!-- Main CSS-->
+    <link rel="stylesheet" href="~/Content/AdminTemplate/css/main.css">
+
+
+</head>
+@*<body>*@
+@*<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">*@
+<body>
+
+    <aside class="left-sidebar">
+        <div class="logo">
+            <a href="#welcome">
+                <img src="img/logo.png" alt="">
+            </a>
+        </div>
+        <nav class="left-nav">
+            <ul id="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("Sessions", "Index", "SessionTables")</li>
+                <li>@Html.ActionLink("Departments", "Index", "DepartmentTables")</li>
+                <li>@Html.ActionLink("Program", "Index", "ProgrammeTables")</li>
+                <li>@Html.ActionLink("Semester types", "Index", "SemesterTypeTables")</li>
+                <li>@Html.ActionLink("Semesters", "Index", "SemesterTables")</li>
+                <li>@Html.ActionLink("Subjects", "Index", "SubjectSemesterTables")</li>
+                <li>@Html.ActionLink("Program semesters setting", "Index", "ProgrammeSemestersTables")</li>
+                <li>@Html.ActionLink("Semester subjects setting", "Index", "SubjectSemesterTables")</li>
+                <li>@Html.ActionLink("Students", "Index", "StudentTables")</li>
+                <li>@Html.ActionLink("Marks sheet", "Index", "MarkSheetTables")</li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div id="main-wrapper">
+        <div class="main-content">
+
+            <div class="content-header">
+                <h1>Transcript App</h1>
             </div>
+            <div class="welcome">
+                @RenderBody()
+            </div>
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <!-- Essential JavaScript Libraries
+    ==============================================-->
+    @*<script type="text/javascript" src="~/Content/AdminTemplate/js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="~/Content/AdminTemplate/js/jquery.nav.js"></script>
+        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shCore.js"></script>
+        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushXml.js"></script>
+        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushCss.js"></script>
+        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushPhp.js"></script>*@
+    <script src="~/Content/AdminTemplate/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Content/AdminTemplate/js/jquery.nav.js"></script>
+    <script src="~/Content/AdminTemplate/syntax-highlighter/scripts/shCore.js"></script>
+    <script src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushXml.js"></script>
+    <script src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushCss.js"></script>
+    <script src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushJScript.js"></script>
+    <script src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushPhp.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all()
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+
+    </script>
+    <script type="text/javascript" src="~/Content/AdminTemplate/js/custom.js"></script>
+
+
 </body>
 </html>
+
+@*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@
