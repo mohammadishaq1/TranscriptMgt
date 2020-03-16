@@ -1,12 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    @*<meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@ViewBag.Title - My ASP.NET Application</title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")*@
-
     <meta charset="utf-8">
     <title>Transcript App</title>
     <meta name="description" content="">
@@ -28,21 +22,17 @@
     <!-- Main CSS-->
     <link rel="stylesheet" href="~/Content/AdminTemplate/css/main.css">
 
-
+    <link rel="stylesheet" href="~/Content/StartupTemplate/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/StartupTemplate/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Content/StartupTemplate/css/flaticon.css">
+    <link rel="stylesheet" href="~/Content/StartupTemplate/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/StartupTemplate/vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/StartupTemplate/vendors/animate-css/animate.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="~/Content/StartupTemplate/css/style.css">
+    <link rel="stylesheet" href="~/Content/StartupTemplate/css/responsive.css">
+  
 </head>
-@*<body>*@
-@*<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">*@
 <body>
 
     <aside class="left-sidebar">
@@ -101,18 +91,26 @@
     <script src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushPhp.js"></script>
     <script type="text/javascript">
         SyntaxHighlighter.all()
-
-
-
     </script>
     <script type="text/javascript" src="~/Content/AdminTemplate/js/custom.js"></script>
 
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/Content/StartupTemplate/js/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/StartupTemplate/js/popper.js"></script>
+    <script src="~/Content/StartupTemplate/js/bootstrap.min.js"></script>
+    <script src="~/Content/StartupTemplate/js/stellar.js"></script>
+    <script src="~/Content/StartupTemplate/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/Content/StartupTemplate/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Content/StartupTemplate/js/waypoints.min.js"></script>
+    <script src="~/Content/StartupTemplate/js/mail-script.js"></script>
+    <script src="~/Content/StartupTemplate/js/contact.js"></script>
+    <script src="~/Content/StartupTemplate/js/jquery.form.js"></script>
+    <script src="~/Content/StartupTemplate/js/jquery.validate.min.js"></script>
+    <script src="~/Content/StartupTemplate/js/mail-script.js"></script>
+    <script src="~/Content/StartupTemplate/js/theme.js"></script>
+
+
 </body>
 </html>
-
-@*@Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
-    </html>*@
