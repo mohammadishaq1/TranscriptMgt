@@ -31,6 +31,12 @@
     <!-- main css -->
     <link rel="stylesheet" href="~/Content/StartupTemplate/css/style.css">
     <link rel="stylesheet" href="~/Content/StartupTemplate/css/responsive.css">
+    <style>
+        #topFixedNavbar1{
+            overflow-y:scroll !important;
+            max-height:500px !important;
+        }
+    </style>
   
 </head>
 <body>
@@ -41,7 +47,7 @@
                 <img src="img/logo.png" alt="">
             </a>
         </div>
-        <nav class="left-nav">
+        <nav class="left-nav" >  @*id="topFixedNavbar1" for side bar*@ 
             <ul id="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 <li>@Html.ActionLink("Sessions", "Index", "SessionTables")</li>
@@ -49,7 +55,7 @@
                 <li>@Html.ActionLink("Program", "Index", "ProgrammeTables")</li>
                 <li>@Html.ActionLink("Semester types", "Index", "SemesterTypeTables")</li>
                 <li>@Html.ActionLink("Semesters", "Index", "SemesterTables")</li>
-                <li>@Html.ActionLink("Subjects", "Index", "SubjectSemesterTables")</li>
+                <li>@Html.ActionLink("Subjects", "Index", "SubjectTables")</li>
                 <li>@Html.ActionLink("Program semesters setting", "Index", "ProgrammeSemestersTables")</li>
                 <li>@Html.ActionLink("Semester subjects setting", "Index", "SubjectSemesterTables")</li>
                 <li>@Html.ActionLink("Students", "Index", "StudentTables")</li>
@@ -64,9 +70,12 @@
             <div class="content-header">
                 <h1>Transcript App</h1>
             </div>
-            <div class="welcome">
+            <h2 class="text-success center"> @ViewBag.Title</h2>
+            <hr />
+          
+
                 @RenderBody()
-            </div>
+            
             <hr />
             <footer>
                 <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
@@ -75,13 +84,7 @@
     </div>
     <!-- Essential JavaScript Libraries
     ==============================================-->
-    @*<script type="text/javascript" src="~/Content/AdminTemplate/js/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript" src="~/Content/AdminTemplate/js/jquery.nav.js"></script>
-        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shCore.js"></script>
-        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushXml.js"></script>
-        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushCss.js"></script>
-        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushJScript.js"></script>
-        <script type="text/javascript" src="~/Content/AdminTemplate/syntax-highlighter/scripts/shBrushPhp.js"></script>*@
+ 
     <script src="~/Content/AdminTemplate/js/jquery-1.11.0.min.js"></script>
     <script src="~/Content/AdminTemplate/js/jquery.nav.js"></script>
     <script src="~/Content/AdminTemplate/syntax-highlighter/scripts/shCore.js"></script>
