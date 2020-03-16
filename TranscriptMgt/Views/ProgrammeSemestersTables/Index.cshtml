@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DataAccess.ProgrammeSemestersTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProgrammeTable.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SemesterTable.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProgrammeTable.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SemesterTable.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProgrammeSemesterID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProgrammeSemesterID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProgrammeSemesterID })
+        </td>
+    </tr>
+}
+
+</table>

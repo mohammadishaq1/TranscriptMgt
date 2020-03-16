@@ -1,0 +1,57 @@
+﻿@model IEnumerable<DataAccess.MarkSheetTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubjectSemesterID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ObtainMidTermMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ObtainFinalTermMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProgrammeSemestersTable.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTable.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubjectSemesterID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ObtainMidTermMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ObtainFinalTermMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProgrammeSemestersTable.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentTable.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MarkID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MarkID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MarkID })
+        </td>
+    </tr>
+}
+
+</table>

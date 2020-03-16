@@ -1,0 +1,130 @@
+﻿@model DataAccess.StudentTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StudentTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reg_No)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reg_No)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Enroll_No)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Enroll_No)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dob)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Father_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Father_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Photo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data_of_Addmission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data_of_Addmission)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Religion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Religion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentTable.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentTable.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProgrammeTable.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProgrammeTable.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionTable.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionTable.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StudentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

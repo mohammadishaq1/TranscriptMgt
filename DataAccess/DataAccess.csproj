@@ -132,11 +132,5 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TranscriptMgt\TranscriptMgt.csproj">
-      <Project>{893eb3ee-7212-43ec-a727-03c66e204577}</Project>
-      <Name>TranscriptMgt</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

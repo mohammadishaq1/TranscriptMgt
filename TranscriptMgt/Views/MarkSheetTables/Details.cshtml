@@ -1,0 +1,58 @@
+﻿@model DataAccess.MarkSheetTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MarkSheetTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubjectSemesterID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubjectSemesterID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ObtainMidTermMarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ObtainMidTermMarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ObtainFinalTermMarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ObtainFinalTermMarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProgrammeSemestersTable.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProgrammeSemestersTable.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentTable.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentTable.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MarkID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
