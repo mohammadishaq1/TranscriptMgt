@@ -27,6 +27,7 @@ namespace DataAccess
         [Required(ErrorMessage = "Required")]
         [Display(Name ="Semester Title:")]
         public string Name { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

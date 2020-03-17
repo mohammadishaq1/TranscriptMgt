@@ -53,6 +53,7 @@ namespace DataAccess
         public string Religion { get; set; }
         [Required(ErrorMessage = "Required")]
         public string Address { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [NotMapped]
         public HttpPostedFileBase LogoFile { get; set; }

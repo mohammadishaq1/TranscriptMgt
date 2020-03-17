@@ -31,6 +31,7 @@ namespace DataAccess
         [Required(ErrorMessage = "Required")]
         [DataType(DataType.Date)]
         public System.DateTime End_Date { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

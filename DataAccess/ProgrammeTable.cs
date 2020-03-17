@@ -28,6 +28,7 @@ namespace DataAccess
         [Required(ErrorMessage = "Required")]
         [Display(Name = "Program Title:")]
         public string Name { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     
         public virtual DepartmentTable DepartmentTable { get; set; }
