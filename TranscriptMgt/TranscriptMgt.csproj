@@ -138,6 +138,7 @@
     <Compile Include="Controllers\SubjectSemesterTablesController.cs" />
     <Compile Include="Controllers\SubjectTablesController.cs" />
     <Compile Include="Controllers\UsersTablesController.cs" />
+    <Compile Include="FileHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -500,6 +501,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\StudentPhoto\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

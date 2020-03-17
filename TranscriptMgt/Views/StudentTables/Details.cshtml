@@ -55,7 +55,10 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Photo)
+            @if ((Html.DisplayFor(model=>model.Photo)) !=null)
+            {
+                <img src="@Url.Content(Html.DisplayFor(model=>model.Photo).ToString())" alt="Image" style="width:100px; height:150px; max-width:100%; height:auto" />
+            }
         </dd>
 
         <dt>

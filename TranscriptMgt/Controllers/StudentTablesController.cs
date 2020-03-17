@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -50,12 +51,26 @@ namespace TranscriptMgt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentID,DepartmentID,ProgrammeID,SessionID,Name,Reg_No,Enroll_No,Dob,Father_Name,Photo,Gender,Data_of_Addmission,Religion,Address,Description")] StudentTable studentTable)
+        public ActionResult Create(StudentTable studentTable)
         {
+
             if (ModelState.IsValid)
             {
                 db.StudentTables.Add(studentTable);
                 db.SaveChanges();
+                if (studentTable.LogoFile != null)
+                {
+                    var folder = "~/Content/StudentPhoto";
+                    var file = string.Format("{0}.png", studentTable.StudentID);
+                    var response = FileHelpers.UploadPhoto(studentTable.LogoFile, folder, file);
+                    if (response)
+                    {
+                        var pic = string.Format("{0}/{1}", folder, file);
+                        studentTable.Photo = pic;
+                        db.Entry(studentTable).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
                 return RedirectToAction("Index");
             }
 
@@ -88,10 +103,23 @@ namespace TranscriptMgt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentID,DepartmentID,ProgrammeID,SessionID,Name,Reg_No,Enroll_No,Dob,Father_Name,Photo,Gender,Data_of_Addmission,Religion,Address,Description")] StudentTable studentTable)
+        public ActionResult Edit(StudentTable studentTable)
         {
             if (ModelState.IsValid)
             {
+                if (studentTable.LogoFile != null)
+                {
+                    var folder = "~/Content/StudentPhoto";
+                    var extension = Path.GetExtension(studentTable.LogoFile.FileName);
+                    var file = string.Format("{0}.png", studentTable.StudentID);
+                    var response = FileHelpers.UploadPhoto(studentTable.LogoFile, folder, file);
+                    if (response)
+                    {
+                        var pic = string.Format("{0}/{1}{2}", folder, file,extension);
+                        studentTable.Photo = pic;
+                       
+                    }
+                }
                 db.Entry(studentTable).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
