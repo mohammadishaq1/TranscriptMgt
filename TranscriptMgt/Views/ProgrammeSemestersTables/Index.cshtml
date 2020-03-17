@@ -12,15 +12,17 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Semester Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProgrammeTable.Name)
+           Program
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SemesterTable.Name)
+            Semester
         </th>
-        <th></th>
+        <th>
+            Action
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -35,9 +37,8 @@
             @Html.DisplayFor(modelItem => item.SemesterTable.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProgrammeSemesterID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProgrammeSemesterID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProgrammeSemesterID })
+            @Html.ActionLink("Update", "Edit", new { id=item.ProgrammeSemesterID }, new { @class = "genric-btn primary" }) 
+           
         </td>
     </tr>
 }

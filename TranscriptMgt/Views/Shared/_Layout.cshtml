@@ -31,7 +31,8 @@
     <!-- main css -->
     <link rel="stylesheet" href="~/Content/StartupTemplate/css/style.css">
     <link rel="stylesheet" href="~/Content/StartupTemplate/css/responsive.css">
-    <style>
+
+    <style>   /*for side bar*/
         #topFixedNavbar1{
             overflow-y:scroll !important;
             max-height:500px !important;
@@ -71,13 +72,13 @@
                 <h1>Transcript App</h1>
             </div>
             <h2 class="text-success center"> @ViewBag.Title</h2>
-            <hr />
+           
           
 
                 @RenderBody()
             
-            <hr />
-            <footer>
+            
+            <footer style="margin-left:20px; margin-right:20px">
                 <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
             </footer>
         </div>

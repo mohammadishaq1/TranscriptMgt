@@ -1,47 +1,66 @@
 ﻿@model IEnumerable<DataAccess.DepartmentTable>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All Departments";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Department Name
-        </th>
-        <th>
-            Establish Date
-        </th>
-        <th>
-           Description
-        </th>
-        <th>
-            Action
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Establish_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentID }, new { @class="genric-btn primary"}) 
-            @Html.ActionLink("Details", "Details", new { id=item.DepartmentID }, new { @class="genric-btn info"}) 
-       
-        </td>
-    </tr>
-}
-
-</table>
+<div class="card">
+    <div class="card-header py-3">
+        @Html.ActionLink("New Department", "Create", null, new { @class = "genric-btn success" })
+        <input type="text" id="txtsearch" name="txtsearch" class="form-control col-md-2" style="float:right" placeholder="Search"/>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Department Name
+                        </th>
+                        <th>
+                            Establish Date
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="searchvalue">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Establish_Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }, new { @class = "genric-btn primary" })
+                                @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }, new { @class = "genric-btn info" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtsearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#searchvalue tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
