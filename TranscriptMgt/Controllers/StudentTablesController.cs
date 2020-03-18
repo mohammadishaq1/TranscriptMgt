@@ -56,21 +56,22 @@ namespace TranscriptMgt.Controllers
 
             if (ModelState.IsValid)
             {
-                db.StudentTables.Add(studentTable);
-                db.SaveChanges();
                 if (studentTable.LogoFile != null)
                 {
                     var folder = "~/Content/StudentPhoto";
-                    var file = string.Format("{0}.png", studentTable.StudentID);
+                    var extension = Path.GetExtension(studentTable.LogoFile.FileName);
+                    var file = string.Format("{0}", studentTable.StudentID);
                     var response = FileHelpers.UploadPhoto(studentTable.LogoFile, folder, file);
                     if (response)
                     {
-                        var pic = string.Format("{0}/{1}", folder, file);
+                        var pic = string.Format("{0}/{1}{2}", folder, file, extension);
                         studentTable.Photo = pic;
-                        db.Entry(studentTable).State = EntityState.Modified;
-                        db.SaveChanges();
+
                     }
                 }
+                db.StudentTables.Add(studentTable);
+                db.SaveChanges();
+              
                 return RedirectToAction("Index");
             }
 
@@ -111,7 +112,7 @@ namespace TranscriptMgt.Controllers
                 {
                     var folder = "~/Content/StudentPhoto";
                     var extension = Path.GetExtension(studentTable.LogoFile.FileName);
-                    var file = string.Format("{0}.png", studentTable.StudentID);
+                    var file = string.Format("{0}", studentTable.StudentID);
                     var response = FileHelpers.UploadPhoto(studentTable.LogoFile, folder, file);
                     if (response)
                     {
