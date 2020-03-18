@@ -134,6 +134,7 @@
     <Compile Include="Controllers\SemesterTablesController.cs" />
     <Compile Include="Controllers\SemesterTypeTablesController.cs" />
     <Compile Include="Controllers\SessionTablesController.cs" />
+    <Compile Include="Controllers\StudentPromoteTablesController.cs" />
     <Compile Include="Controllers\StudentTablesController.cs" />
     <Compile Include="Controllers\SubjectSemesterTablesController.cs" />
     <Compile Include="Controllers\SubjectTablesController.cs" />
@@ -142,6 +143,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DepartmentMV.cs" />
+    <Compile Include="Models\ProgrammeMV.cs" />
+    <Compile Include="Models\ProgrammeSemesterMV.cs" />
+    <Compile Include="Models\SemesterSubjectMV.cs" />
+    <Compile Include="Models\SessionMV.cs" />
+    <Compile Include="Models\StudentPromoteMV.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -498,11 +505,16 @@
     <Content Include="Views\MarkSheetTables\Details.cshtml" />
     <Content Include="Views\MarkSheetTables\Edit.cshtml" />
     <Content Include="Views\MarkSheetTables\Index.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Create.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Delete.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Details.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Edit.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Index.cshtml" />
+    <Content Include="Views\StudentPromoteTables\PromoteStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\StudentPhoto\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

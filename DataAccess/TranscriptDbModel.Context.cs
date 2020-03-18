@@ -32,6 +32,7 @@ namespace DataAccess
         public virtual DbSet<SemesterTable> SemesterTables { get; set; }
         public virtual DbSet<SemesterTypeTable> SemesterTypeTables { get; set; }
         public virtual DbSet<SessionTable> SessionTables { get; set; }
+        public virtual DbSet<StudentPromoteTable> StudentPromoteTables { get; set; }
         public virtual DbSet<StudentTable> StudentTables { get; set; }
         public virtual DbSet<SubjectSemesterTable> SubjectSemesterTables { get; set; }
         public virtual DbSet<SubjectTable> SubjectTables { get; set; }

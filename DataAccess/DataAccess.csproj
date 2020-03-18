@@ -73,6 +73,9 @@
     <Compile Include="SessionTable.cs">
       <DependentUpon>TranscriptDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="StudentPromoteTable.cs">
+      <DependentUpon>TranscriptDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="StudentTable.cs">
       <DependentUpon>TranscriptDbModel.tt</DependentUpon>
     </Compile>

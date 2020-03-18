@@ -20,13 +20,16 @@ namespace DataAccess
         {
             this.MarkSheetTables = new HashSet<MarkSheetTable>();
             this.SubjectSemesterTables = new HashSet<SubjectSemesterTable>();
+            this.StudentPromoteTables = new HashSet<StudentPromoteTable>();
         }
     
         public int ProgrammeSemesterID { get; set; }
         [Required(ErrorMessage = "Required")]
-        public Nullable<int> SemesterID { get; set; }
-        [Required(ErrorMessage = "Required")]
         public int ProgrammeID { get; set; }
+        [Required(ErrorMessage = "Required")]
+        public int SemesterID { get; set; }
+        [Display(Name ="Program Semester Title")]
+        [Required(ErrorMessage = "Required")]
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -35,5 +38,6 @@ namespace DataAccess
         public virtual SemesterTable SemesterTable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubjectSemesterTable> SubjectSemesterTables { get; set; }
+        public virtual ICollection<StudentPromoteTable> StudentPromoteTables { get; set; }
     }
 }

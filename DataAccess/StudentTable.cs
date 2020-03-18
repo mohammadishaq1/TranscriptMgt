@@ -21,6 +21,7 @@ namespace DataAccess
         public StudentTable()
         {
             this.MarkSheetTables = new HashSet<MarkSheetTable>();
+            this.StudentPromoteTables = new HashSet<StudentPromoteTable>();
         }
     
         public int StudentID { get; set; }
@@ -62,5 +63,7 @@ namespace DataAccess
         public virtual ICollection<MarkSheetTable> MarkSheetTables { get; set; }
         public virtual ProgrammeTable ProgrammeTable { get; set; }
         public virtual SessionTable SessionTable { get; set; }
+        public virtual ICollection<StudentPromoteTable> StudentPromoteTables { get; set; }
+
     }
 }

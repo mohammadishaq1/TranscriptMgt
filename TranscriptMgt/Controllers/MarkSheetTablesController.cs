@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DataAccess;
+using TranscriptMgt.Models;
 
 namespace TranscriptMgt.Controllers
 {
@@ -36,11 +37,23 @@ namespace TranscriptMgt.Controllers
             return View(markSheetTable);
         }
 
+        public List<SemesterSubjectMV> GetSemesterSubject()
+        {
+            var list = new List<SemesterSubjectMV>();
+            var subj = db.SubjectSemesterTables.ToList();
+            foreach (var item in subj)
+            {
+                list.Add(new SemesterSubjectMV { SubjectSemesterID = item.SubjectSemesterID, Name = item.SubjectTable.Name });
+            }
+            return list;
+        }
+
         // GET: MarkSheetTables/Create
         public ActionResult Create()
         {
-            ViewBag.ProgrammeSemesterID = new SelectList(db.ProgrammeSemestersTables, "ProgrammeSemesterID", "Description");
-            ViewBag.StudentID = new SelectList(db.StudentTables, "StudentID", "Name");
+            ViewBag.ProgrammeSemesterID = new SelectList(db.ProgrammeSemestersTables, "ProgrammeSemesterID", "Description","0");
+            ViewBag.StudentID = new SelectList(db.StudentTables, "StudentID", "Name", "0");
+            ViewBag.SubjectSemesterID = new SelectList(GetSemesterSubject(), "SubjectSemesterID", "Name", "0");
             return View();
         }
 
@@ -49,7 +62,7 @@ namespace TranscriptMgt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MarkID,StudentID,ProgrammeSemesterID,SubjectSemesterID,ObtainMidTermMarks,ObtainFinalTermMarks")] MarkSheetTable markSheetTable)
+        public ActionResult Create(MarkSheetTable markSheetTable)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +73,7 @@ namespace TranscriptMgt.Controllers
 
             ViewBag.ProgrammeSemesterID = new SelectList(db.ProgrammeSemestersTables, "ProgrammeSemesterID", "Description", markSheetTable.ProgrammeSemesterID);
             ViewBag.StudentID = new SelectList(db.StudentTables, "StudentID", "Name", markSheetTable.StudentID);
+            ViewBag.StudentID = new SelectList(GetSemesterSubject(), "SubjectSemesterID", "Name", markSheetTable.SubjectSemesterID);
             return View(markSheetTable);
         }
 
@@ -77,6 +91,7 @@ namespace TranscriptMgt.Controllers
             }
             ViewBag.ProgrammeSemesterID = new SelectList(db.ProgrammeSemestersTables, "ProgrammeSemesterID", "Description", markSheetTable.ProgrammeSemesterID);
             ViewBag.StudentID = new SelectList(db.StudentTables, "StudentID", "Name", markSheetTable.StudentID);
+            ViewBag.StudentID = new SelectList(GetSemesterSubject(), "SubjectSemesterID", "Name", markSheetTable.SubjectSemesterID);
             return View(markSheetTable);
         }
 
@@ -85,7 +100,7 @@ namespace TranscriptMgt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MarkID,StudentID,ProgrammeSemesterID,SubjectSemesterID,ObtainMidTermMarks,ObtainFinalTermMarks")] MarkSheetTable markSheetTable)
+        public ActionResult Edit(MarkSheetTable markSheetTable)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +110,7 @@ namespace TranscriptMgt.Controllers
             }
             ViewBag.ProgrammeSemesterID = new SelectList(db.ProgrammeSemestersTables, "ProgrammeSemesterID", "Description", markSheetTable.ProgrammeSemesterID);
             ViewBag.StudentID = new SelectList(db.StudentTables, "StudentID", "Name", markSheetTable.StudentID);
+            ViewBag.StudentID = new SelectList(GetSemesterSubject(), "SubjectSemesterID", "Name", markSheetTable.SubjectSemesterID);
             return View(markSheetTable);
         }
 

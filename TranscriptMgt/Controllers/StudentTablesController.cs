@@ -71,7 +71,7 @@ namespace TranscriptMgt.Controllers
                 }
                 db.StudentTables.Add(studentTable);
                 db.SaveChanges();
-              
+               
                 return RedirectToAction("Index");
             }
 
