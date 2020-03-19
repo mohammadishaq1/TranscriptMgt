@@ -42,19 +42,115 @@ namespace TranscriptMgt.Controllers
         {
             ViewBag.ProgrammeSemesterID = new SelectList(db.ProgrammeSemestersTables, "ProgrammeSemesterID", "Description","0");
             ViewBag.ProgrammeSemesterPromoteID = new SelectList(db.ProgrammeSemestersTables, "ProgrammeSemesterID", "Description", "0");
+            var studentlist = db.StudentTables.Where(s => s.StudentPromoteTables == null).ToList();
             ViewBag.StudentID = new SelectList(db.StudentTables, "StudentID", "Name", "0");
             return View();
         }
+
+
+
+
+
+        public ActionResult UnPromoteStudent()
+        {
+            return View(new List<StudentPromoteMV>());
+        }
+
+
+        [HttpPost]
+        public ActionResult UnPromoteStudent(int SessionID, int DepartmentID, int ProgrammeID)
+        {
+            if (SessionID == 0 || DepartmentID == 0 || ProgrammeID == 0)
+            {
+                Session["Message"] = "Please fill fields";
+                return View(new List<StudentPromoteMV>());
+            }
+            
+
+            List<StudentPromoteMV> list = new List<StudentPromoteMV>();
+            var studentlist = db.StudentTables.Where(s => s.SessionID==SessionID&& s.DepartmentID==DepartmentID &&s.ProgrammeID==ProgrammeID).ToList();
+            foreach (var item in studentlist)
+            {
+                var find = db.StudentPromoteTables.Where(p => p.StudentID == item.StudentID).FirstOrDefault();
+                if (find == null)
+                {
+
+
+                    var studentpromote = new StudentPromoteMV();
+                    var student = db.StudentTables.Find(item.StudentID);
+                    studentpromote.StudentID = item.StudentID;
+                    studentpromote.StudentName = student.Name;
+                    studentpromote.Reg_No = student.Reg_No;
+                    studentpromote.Enroll_No = student.Enroll_No;
+                    list.Add(studentpromote);
+                }
+            }
+
+            return View(list);
+        }
+
+
+
+
+        public ActionResult GetStudentProgrameDepartmentSession(int? id)
+        {
+            var student = db.StudentTables.Find(id);
+
+           
+            return Json(new { sDepartmentID = student.DepartmentID, sProgrammeID=student.ProgrammeID,sSessionID=student.SessionID  }, JsonRequestBehavior.AllowGet);
+        }
+        
+
+
+
+
+
 
         public ActionResult PromoteStudent()
         {
             return View( new List<StudentPromoteMV>());
         }
+
+
+
+
+
+
+
+
+
         [HttpPost]
         public ActionResult PromoteStudent(int SessionID, int DepartmentID, int ProgrammeID, int CurrentSemesterID, int PromoteSemesterID)
         {
-            return View();
+            if(SessionID==0||DepartmentID==0||ProgrammeID==0||CurrentSemesterID==0||PromoteSemesterID==0)
+            {
+                Session["Message"] = "Please fill fields";
+                return View(new List<StudentPromoteMV>());
+            }
+            if(PromoteSemesterID<CurrentSemesterID|| CurrentSemesterID == PromoteSemesterID)
+            {
+                Session["Message"] = "current semester must be less promote semester ";
+                return View(new List<StudentPromoteMV>());
+            }
+
+            List<StudentPromoteMV> list = new List<StudentPromoteMV>();
+            var studentlist = db.StudentPromoteTables.Where(p => p.ProgrammeSemesterID == CurrentSemesterID).ToList();
+            foreach (var item in studentlist)
+            {
+                var studentpromote = new StudentPromoteMV();
+                var student = db.StudentTables.Find(item.StudentID);
+                studentpromote.StudentID = item.StudentID;
+                studentpromote.StudentName = student.Name;
+                studentpromote.Reg_No = student.Reg_No;
+                studentpromote.Enroll_No = student.Enroll_No;
+                studentpromote.IsActive = item.IsActive;
+                studentpromote.ProgrammeSemesterID = item.ProgrammeSemesterID;
+                list.Add(studentpromote);
+            }
+
+            return View(list);
         }
+
         [HttpGet]
         public ActionResult GetSession()
         {
@@ -83,17 +179,6 @@ namespace TranscriptMgt.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         [HttpGet]
         public ActionResult GetProgram(int? id)
         {
@@ -105,18 +190,6 @@ namespace TranscriptMgt.Controllers
             }
             return Json(new { data = list }, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

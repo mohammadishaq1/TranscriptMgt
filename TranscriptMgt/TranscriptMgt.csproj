@@ -511,6 +511,7 @@
     <Content Include="Views\StudentPromoteTables\Edit.cshtml" />
     <Content Include="Views\StudentPromoteTables\Index.cshtml" />
     <Content Include="Views\StudentPromoteTables\PromoteStudent.cshtml" />
+    <Content Include="Views\StudentPromoteTables\UnPromoteStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
