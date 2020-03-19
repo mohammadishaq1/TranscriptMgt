@@ -13,7 +13,7 @@
     <div class="card">
         <div class="card-header py-3">
             <h4 style="float:left">Retrive UnPromoted Student List</h4>
-            <h4 style="float:right" class="text-danger">@Session["Message"]</h4>
+            <h4 style="float:right" class="text-success">@Session["Message"]</h4>
         </div>
         <div class="card-body">
             <div class="row">
@@ -40,75 +40,83 @@
     </div>
 }
 
-<div class="card">
-    <div class="card-header py-3">
-        <h4 style="float:left">Student List</h4>
-        <input type="text" id="txtsearch" name="txtsearch" class="form-control col-md-2" style="float:right" placeholder="Search" />
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th style="display:none">
-                            StudentID
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Registration Number
-                        </th>
-                        <th>
-                            Enrollment Number
-                        </th>
-                        <th>
-                            Promote Status
-                        </th>
-
-                    </tr>
-                </thead>
-                <tbody id="searchvalue">
-                    @foreach (var item in Model)
-                    {
+@using (Html.BeginForm("PromoteUnPromoteStudent", "StudentPromoteTables", FormMethod.Post, null))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="card">
+        <div class="card-header py-3">
+            <h4 style="float:left">Student List</h4>
+          
+            <input type="text" id="txtsearch" name="txtsearch" class="form-control col-md-2" style="float:right" placeholder="Search" />
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
                         <tr>
-                            <td style="display:none;">
-                                @Html.EditorFor(modelItem => item.ProgrammeSemesterID)
-                            </td>
+                            <th style="display:none">
+                                StudentID
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Registration Number
+                            </th>
+                            <th>
+                                Enrollment Number
+                            </th>
+                            <th>
+                                Promote Status
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="searchvalue">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="display:none;">
+                                    @Html.EditorFor(modelItem => item.ProgrammeSemesterID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reg_No)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Enroll_No)
+                                </td>
+
+                                <td>
+                                    <input type="checkbox" name="name @item.StudentID" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.StudentName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Reg_No)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Enroll_No)
-                            </td>
-                           
-                            <td>
-                                <input type="checkbox" name="name" @item.StudentID />
+                                <input type="submit" value="Promote All" style="float:right" class="btn btn-primary" />
                             </td>
                         </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <input type="submit" value="Promote All" style="float:right" class="btn btn-primary" />
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+}
 
 
 
 
-
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
 
 
     $(document).ready(function () {
@@ -198,4 +206,4 @@
 
 
     });
-</script>
+    </script>

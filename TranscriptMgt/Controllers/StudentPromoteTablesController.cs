@@ -92,6 +92,49 @@ namespace TranscriptMgt.Controllers
 
 
 
+
+
+        [HttpPost]
+        public ActionResult PromoteUnPromoteStudent(FormCollection collection)
+        {
+            List<int> studentids = new List<int>();
+            string[] keys = collection.AllKeys;
+            foreach (var name in keys)
+            {
+                if (name.Contains("name"))
+                {
+                    string idname = name;
+                    string[] valueids = idname.Split(' ');
+                    studentids.Add(Convert.ToInt32(valueids[1]));
+                }
+            }
+            foreach (int studentid in studentids)
+            {
+                var student = db.StudentTables.Find(studentid);
+                var promotesemesterid = db.ProgrammeSemestersTables.Where(p => p.ProgrammeID == student.ProgrammeID).FirstOrDefault();
+                var promotestudent = new StudentPromoteTable();
+
+                promotestudent.IsActive = true;
+                promotestudent.ProgrammeSemesterID = promotesemesterid.ProgrammeSemesterID;
+                promotestudent.StudentID = studentid;
+
+                db.StudentPromoteTables.Add(promotestudent);
+                db.SaveChanges();
+            }
+            Session["Message"] = "Student promoted successfully";
+            return RedirectToAction("UnPromoteStudent");
+        }
+
+
+
+
+
+
+
+
+
+
+
         public ActionResult GetStudentProgrameDepartmentSession(int? id)
         {
             var student = db.StudentTables.Find(id);
@@ -100,6 +143,15 @@ namespace TranscriptMgt.Controllers
             return Json(new { sDepartmentID = student.DepartmentID, sProgrammeID=student.ProgrammeID,sSessionID=student.SessionID  }, JsonRequestBehavior.AllowGet);
         }
         
+
+
+
+
+
+
+
+
+
 
 
 
