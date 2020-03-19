@@ -1,7 +1,237 @@
-﻿
+﻿@model IEnumerable<TranscriptMgt.Models.StudentPromoteMV>
 @{
     ViewBag.Title = "Student List";
 }
 
 <h2>Promote Student</h2>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+@using (Html.BeginForm("PromoteStudent", "StudentPromoteTables", FormMethod.Post, null))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="card">
+        <div class="card-header py-3">
+            <h4 style="float:left">Retrive Student List</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="col-md-2">Select Session</label>
+                    <select class="form-control" id="SessionID" name="SessionID" required></select>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-2">Select Department</label>
+                    <select class="form-control" id="DepartmentID" name="DepartmentID" required></select>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-2">Select Program</label>
+                    <select class="form-control" id="ProgrammeID" name="ProgrammeID" required></select>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-2">Select Current Semester</label>
+                    <select class="form-control" id="CurrentSemesterID" name="CurrentSemesterID" required></select>
+                </div>
+                <div class="col-md-4">
+                    <label class="col-md-2">Select Promote Semester</label>
+                    <select class="form-control" id="PromoteSemesterID" name="PromoteSemesterID" required></select>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Get Student List" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
+
+<div class="card">
+    <div class="card-header py-3">
+        <h4 style="float:left">Student List</h4>
+        <input type="text" id="txtsearch" name="txtsearch" class="form-control col-md-2" style="float:right" placeholder="Search" />
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="display:none">
+                            StudentID
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Registration Number
+                        </th>
+                        <th>
+                            Enrollment Number
+                        </th>
+                        <th>
+                            Semester Status
+                        </th>
+                        <th>
+                            Promote Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="searchvalue">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="display:none;">
+                                @Html.EditorFor(modelItem => item.ProgrammeSemesterID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Reg_No)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Enroll_No)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+                            <td>
+                                <input type="checkbox" name="name" @item.StudentID />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Promote All" style="float:right" />
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#txtsearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#searchvalue tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+
+
+
+
+
+
+        $.ajax({
+            url: '@Url.Action("GetSession","StudentPromoteTables")',
+            type: 'GET',
+            data: "{}",
+            success: function (response) {
+                 $("#SessionID").append("<option value='0'>--select--</option>")
+                for (var i = 0; i < response.data.length; i++)
+                {
+                    $("#SessionID").append("<option value=" + response.data[i].SessionID + ">" + response.data[i].Name + "</option");
+                }
+            },
+            error: function () {
+
+            }
+
+        });
+
+            $.ajax({
+            url: '@Url.Action("GetDepartment","StudentPromoteTables")',
+            type: 'GET',
+            data: "{}",
+                success: function (response) {
+                    $("#DepartmentID").append("<option value='0'>--select--</option>")
+                for (var i = 0; i < response.data.length; i++)
+                {
+                    $("#DepartmentID").append("<option value=" + response.data[i].DepartmentID + ">" + response.data[i].Name + "</option");
+                }
+            },
+            error: function () {
+
+            }
+
+        });
+
+
+
+        $('#DepartmentID').change(function () {
+
+            $('#ProgrammeID').html('');
+
+            $.ajax({
+                url: '@Url.Action("GetProgram","StudentPromoteTables")',
+                type: 'GET',
+                data: { id: $(this).val() },
+                dataType:'Json',
+                success: function (response) {
+                 $("#ProgrammeID").append("<option value='0'>--select--</option>")
+                for (var i = 0; i < response.data.length; i++)
+                {
+                    $("#ProgrammeID").append("<option value=" + response.data[i].ProgrammeID + ">" + response.data[i].Name + "</option");
+                }
+            },
+            error: function () {
+
+            }
+
+        });
+
+
+        })
+
+
+            $('#ProgrammeID').change(function () {
+
+                $('#CurrentSemesterID').html('');
+                $('#PromoteSemesterID').html('');
+
+            $.ajax({
+                url: '@Url.Action("GetSemesters","StudentPromoteTables")',
+                type: 'GET',
+                data: { id: $(this).val() },
+                dataType:'Json',
+                success: function (response) {
+                    $("#CurrentSemesterID").append("<option value='0'>--select--</option>")
+                    $("#PromoteSemesterID").append("<option value='0'>--select--</option>")
+                for (var i = 0; i < response.data.length; i++)
+                {
+                    $("#CurrentSemesterID").append("<option value=" + response.data[i].ProgrammeSemesterID + ">" + response.data[i].Description + "</option");
+                    $("#PromoteSemesterID").append("<option value=" + response.data[i].ProgrammeSemesterID + ">" + response.data[i].Description + "</option");
+                }
+            },
+            error: function () {
+
+            }
+
+        });
+
+
+        })
+
+
+
+
+
+
+
+
+
+    });
+</script>

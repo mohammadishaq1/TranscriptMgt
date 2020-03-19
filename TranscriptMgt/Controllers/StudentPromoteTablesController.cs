@@ -48,6 +48,11 @@ namespace TranscriptMgt.Controllers
 
         public ActionResult PromoteStudent()
         {
+            return View( new List<StudentPromoteMV>());
+        }
+        [HttpPost]
+        public ActionResult PromoteStudent(int SessionID, int DepartmentID, int ProgrammeID, int CurrentSemesterID, int PromoteSemesterID)
+        {
             return View();
         }
         [HttpGet]
@@ -74,17 +79,50 @@ namespace TranscriptMgt.Controllers
             return Json(new { data = list }, JsonRequestBehavior.AllowGet);
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpGet]
         public ActionResult GetProgram(int? id)
         {
             List<ProgrammeMV> list = new List<ProgrammeMV>();
-            var programs = db.ProgrammeTables.Where(p=>p.ProgrammeID ==id).ToList();
+            var programs = db.ProgrammeTables.Where(p=>p.DepartmentID ==id).ToList();
             foreach (var item in programs)
             {
                 list.Add(new ProgrammeMV { Name = item.Name, ProgrammeID = item.ProgrammeID });
             }
             return Json(new { data = list }, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpGet]
         public ActionResult GetSemesters(int? id)
         {
