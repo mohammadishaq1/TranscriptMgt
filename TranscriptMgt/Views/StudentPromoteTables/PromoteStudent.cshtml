@@ -33,13 +33,9 @@
                     <label>Select Current Semester</label>
                     <select class="form-control" id="CurrentSemesterID" name="CurrentSemesterID" required></select>
                 </div>
-                <div class="col-md-4">
-                    <label>Select Promote Semester</label>
-                    <select class="form-control" id="PromoteSemesterID" name="PromoteSemesterID" required></select>
-                </div>
             </div>
             <div class="card-footer">
-                
+
                 <input style="float:right" type="submit" value="Get Student List" class="btn btn-success" />
 
             </div>
@@ -47,80 +43,83 @@
     </div>
 }
 
-
-<div class="card">
-    <div class="card-header py-3">
-        <h4 style="float:left">Student List</h4>
-        <input type="text" id="txtsearch" name="txtsearch" class="form-control col-md-2" style="float:right" placeholder="Search" />
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th style="display:none">
-                            StudentID
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Registration Number
-                        </th>
-                        <th>
-                            Enrollment Number
-                        </th>
-                        <th>
-                            Semester Status
-                        </th>
-                        <th>
-                            Promote Status
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="searchvalue">
-                    @foreach (var item in Model)
-                    {
+@using (Html.BeginForm("PromoteAllStudent", "StudentPromoteTables", FormMethod.Post, null))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="card">
+        <div class="card-header py-3">
+            <h4 style="float:left">Student List</h4>
+            <input type="text" id="txtsearch" name="txtsearch" class="form-control col-md-2" style="float:right" placeholder="Search" />
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
                         <tr>
-                            <td style="display:none;">
-                                @Html.EditorFor(modelItem => item.ProgrammeSemesterID)
-                            </td>
+                            <th style="display:none">
+                                StudentID
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Registration Number
+                            </th>
+                            <th>
+                                Enrollment Number
+                            </th>
+                            <th>
+                                Semester Status
+                            </th>
+                            <th>
+                                Promote Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="searchvalue">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="display:none;">
+                                    @Html.EditorFor(modelItem => item.ProgrammeSemesterID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reg_No)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Enroll_No)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsActive)
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="name @item.StudentID" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.StudentName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Reg_No)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Enroll_No)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsActive)
-                            </td>
-                            <td>
-                                <input type="checkbox" name="name" @item.StudentID />
+                                <input type="submit" value="Promote All" style="float:right" />
                             </td>
                         </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <input type="submit" value="Promote All" style="float:right" />
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+
+}
 
 
 
-
-
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
 
 
     $(document).ready(function () {
@@ -130,10 +129,6 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
-
-
-
-
 
 
 
@@ -202,7 +197,7 @@
             $('#ProgrammeID').change(function () {
 
                 $('#CurrentSemesterID').html('');
-                $('#PromoteSemesterID').html('');
+              
 
             $.ajax({
                 url: '@Url.Action("GetSemesters","StudentPromoteTables")',
@@ -211,11 +206,9 @@
                 dataType:'Json',
                 success: function (response) {
                     $("#CurrentSemesterID").append("<option value='0'>--select--</option>")
-                    $("#PromoteSemesterID").append("<option value='0'>--select--</option>")
                 for (var i = 0; i < response.data.length; i++)
                 {
                     $("#CurrentSemesterID").append("<option value=" + response.data[i].ProgrammeSemesterID + ">" + response.data[i].Description + "</option");
-                    $("#PromoteSemesterID").append("<option value=" + response.data[i].ProgrammeSemesterID + ">" + response.data[i].Description + "</option");
                 }
             },
             error: function () {
@@ -236,4 +229,4 @@
 
 
     });
-</script>
+    </script>
