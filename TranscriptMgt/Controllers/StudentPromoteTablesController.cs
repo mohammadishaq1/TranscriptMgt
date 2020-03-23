@@ -145,57 +145,6 @@ namespace TranscriptMgt.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public ActionResult PromoteStudent()
-        //{
-        //    return View( new List<StudentPromoteMV>());
-        //}
-
-        //[HttpPost]
-        //public ActionResult PromoteStudent(int SessionID, int DepartmentID, int ProgrammeID, int CurrentSemesterID, int PromoteSemesterID)
-        //{
-        //    if(SessionID==0||DepartmentID==0||ProgrammeID==0||CurrentSemesterID==0||PromoteSemesterID==0)
-        //    {
-        //        Session["Message"] = "Please fill fields";
-        //        return View(new List<StudentPromoteMV>());
-        //    }
-        //    if(PromoteSemesterID<CurrentSemesterID|| CurrentSemesterID == PromoteSemesterID)
-        //    {
-        //        Session["Message"] = "current semester must be less promote semester ";
-        //        return View(new List<StudentPromoteMV>());
-        //    }
-
-        //    List<StudentPromoteMV> list = new List<StudentPromoteMV>();
-        //    var studentlist = db.StudentPromoteTables.Where(p => p.ProgrammeSemesterID == CurrentSemesterID).ToList();
-        //    foreach (var item in studentlist)
-        //    {
-        //        var studentpromote = new StudentPromoteMV();
-        //        var student = db.StudentTables.Find(item.StudentID);
-        //        studentpromote.StudentID = item.StudentID;
-        //        studentpromote.StudentName = student.Name;
-        //        studentpromote.Reg_No = student.Reg_No;
-        //        studentpromote.Enroll_No = student.Enroll_No;
-        //        studentpromote.IsActive = item.IsActive;
-        //        studentpromote.ProgrammeSemesterID = item.ProgrammeSemesterID;
-        //        list.Add(studentpromote);
-        //    }
-
-        //    return View(list);
-        //}
-
-
         public ActionResult PromoteStudent()
         {
             return View(new List<StudentPromoteMV>());
@@ -252,6 +201,12 @@ namespace TranscriptMgt.Controllers
                 var studentcurrentsemester = db.StudentPromoteTables.Where(s => s.IsActive == true && s.StudentID == studentid).FirstOrDefault();
                 var promotestudent = new StudentPromoteTable();
                 promotestudent.IsActive = true;
+                var programsemester = db.ProgrammeSemestersTables.Where(p => p.ProgrammeSemesterID > studentcurrentsemester.ProgrammeSemesterID && p.ProgrammeID == student.ProgrammeID).FirstOrDefault();
+                if (programsemester == null)
+                {
+                    Session["Message"] = "program semester completed (last semester)";
+                    return RedirectToAction("PromoteStudent");
+                }
                 promotestudent.ProgrammeSemesterID = db.ProgrammeSemestersTables.Where(p => p.ProgrammeSemesterID > studentcurrentsemester.ProgrammeSemesterID && p.ProgrammeID == student.ProgrammeID).FirstOrDefault().ProgrammeSemesterID;
                 promotestudent.StudentID = studentid;
 

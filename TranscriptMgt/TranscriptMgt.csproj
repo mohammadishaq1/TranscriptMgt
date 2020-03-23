@@ -128,6 +128,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DepartmentTablesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MarksEntryController.cs" />
     <Compile Include="Controllers\MarkSheetTablesController.cs" />
     <Compile Include="Controllers\ProgrammeSemestersTablesController.cs" />
     <Compile Include="Controllers\ProgrammeTablesController.cs" />
@@ -144,6 +145,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DepartmentMV.cs" />
+    <Compile Include="Models\MarksheetMV.cs" />
     <Compile Include="Models\ProgrammeMV.cs" />
     <Compile Include="Models\ProgrammeSemesterMV.cs" />
     <Compile Include="Models\SemesterSubjectMV.cs" />
@@ -512,6 +514,7 @@
     <Content Include="Views\StudentPromoteTables\Index.cshtml" />
     <Content Include="Views\StudentPromoteTables\PromoteStudent.cshtml" />
     <Content Include="Views\StudentPromoteTables\UnPromoteStudent.cshtml" />
+    <Content Include="Views\MarksEntry\MarkSheet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
