@@ -20,9 +20,9 @@ namespace TranscriptMgt.Controllers
        
 
         [HttpPost]
-        public ActionResult MarkSheet(int SessionID, int DepartmentID, int ProgrammeID, int CurrentSemesterID)
+        public ActionResult MarkSheet(int SessionID, int DepartmentID, int ProgrammeID, int CurrentSemesterID, int SelectSubjectID)
         {
-            if (SessionID == 0 || DepartmentID == 0 || ProgrammeID == 0 || CurrentSemesterID == 0)
+            if (SessionID == 0 || DepartmentID == 0 || ProgrammeID == 0 || CurrentSemesterID == 0 || SelectSubjectID==0)
             {
                 Session["Message"] = "Please fill fields";
                 return View(new List<MarksheetMV>());
@@ -40,8 +40,19 @@ namespace TranscriptMgt.Controllers
                 stu.Reg_No = student.Reg_No;
                 stu.ProgrammeSemesterID = item.ProgrammeSemesterID;
                 stu.Enroll_No = student.Enroll_No;
-                stu.ObtainFinalTermMarks = 0;
-                stu.ObtainMidTermMarks = 0;
+                var marks = db.MarkSheetTables.Where(s => s.StudentID == item.StudentID && s.ProgrammeSemesterID == item.ProgrammeSemesterID && s.SubjectSemesterID== SelectSubjectID).FirstOrDefault();
+                if(marks != null)
+                {
+                    stu.ObtainMidTermMarks = marks.ObtainMidTermMarks;
+                    stu.ObtainFinalTermMarks = marks.ObtainFinalTermMarks;
+                }
+                else
+                {
+                    stu.ObtainFinalTermMarks = 0;
+                    stu.ObtainMidTermMarks = 0;
+
+                }
+                
                 list.Add(stu);
             }
             Session["CurrentSemesterID"] = CurrentSemesterID;
@@ -51,35 +62,59 @@ namespace TranscriptMgt.Controllers
         [HttpPost]
         public ActionResult MarkSheetSubmit(FormCollection collection)
         {
-            List<int> studentids = new List<int>();
-            string[] keys = collection.AllKeys;
-            string ssubjectid = collection["SubjectID"];
-            if(ssubjectid == "0")
+            try
             {
-                Session["Message"] = "Please select subject";
-                return View(new List<MarksheetMV>());
+                List<int> studentids = new List<int>();
+                string[] keys = collection.AllKeys;
+                string ssubjectid = collection["SubjectID"];
+                if (ssubjectid == "0")
+                {
+                    Session["Message"] = "Please select subject";
+                    return RedirectToAction("MarkSheet");
+                }
+                int SubjectID = int.Parse(ssubjectid);
+                int ProgrammeSemesterID = db.SubjectSemesterTables.Find(SubjectID).ProgrammeSemesterID;
+                string[] studentidlist = collection.GetValues("item.StudentID");
+                string[] midtermmarks = collection.GetValues("item.ObtainMidTermMarks");
+                string[] finaltermmarks = collection.GetValues("item.ObtainFinalTermMarks");
+                List<MarkSheetTable> markslist = new List<MarkSheetTable>();
+                for (int i = 0; i < studentidlist.Length; i++)
+                {
+                    var stdmarks = new MarkSheetTable();
+                    stdmarks.StudentID = Convert.ToInt32(studentidlist[i]);
+                    stdmarks.ObtainMidTermMarks = Convert.ToInt32(midtermmarks[i]);
+                    stdmarks.ObtainFinalTermMarks = Convert.ToInt32(finaltermmarks[i]);
+                    stdmarks.SubjectSemesterID = SubjectID;
+                    stdmarks.ProgrammeSemesterID = ProgrammeSemesterID;
+                    markslist.Add(stdmarks);
+                }
+                foreach (MarkSheetTable item in markslist)
+                {
+                    var findsubjectmarks = db.MarkSheetTables.Where(m => m.StudentID == item.StudentID && m.SubjectSemesterID == item.SubjectSemesterID && m.ProgrammeSemesterID == item.ProgrammeSemesterID).FirstOrDefault();
+                    if(findsubjectmarks != null)
+                    {
+                        findsubjectmarks.ObtainMidTermMarks = item.ObtainMidTermMarks;
+                        findsubjectmarks.ObtainFinalTermMarks = item.ObtainFinalTermMarks;
+                        db.Entry(findsubjectmarks).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        db.MarkSheetTables.Add(item);
+                        db.SaveChanges();
+                    }
+
+                   
+                }
+
+                Session["Message"] = "Mark sheet submit successfully";
             }
-            int SubjectID = int.Parse(ssubjectid);
-            int ProgrammeSemesterID = db.SubjectSemesterTables.Find(SubjectID).ProgrammeSemesterID;
-            string[] studentidlist = collection.GetValues("item.StudentID");
-            string[] midtermmarks = collection.GetValues("midtermmarks");
-            string[] finaltermmarks = collection.GetValues("finaltermmarks");
-            List<MarkSheetTable> markslist = new List<MarkSheetTable>();
-            for (int i = 0; i < studentidlist.Length; i++)
+            catch 
             {
-                var stdmarks = new MarkSheetTable();
-                stdmarks.StudentID = Convert.ToInt32(studentidlist[i]);
-                stdmarks.ObtainMidTermMarks = Convert.ToInt32(midtermmarks[i]);
-                stdmarks.ObtainFinalTermMarks = Convert.ToInt32(finaltermmarks[i]);
-                stdmarks.SubjectSemesterID = SubjectID;
-                stdmarks.ProgrammeSemesterID = ProgrammeSemesterID;
+
+                Session["Message"] = "Please try again some problem";
             }
-            foreach (MarkSheetTable item in markslist)
-            {
-                db.MarkSheetTables.Add(item);
-                db.SaveChanges();
-            }
-            return View(new List<MarksheetMV>());
+            return RedirectToAction("MarkSheet");
         }
 
 

@@ -33,6 +33,10 @@
                     <label>Select Current Semester</label>
                     <select class="form-control" id="CurrentSemesterID" name="CurrentSemesterID" required></select>
                 </div>
+                <div class="col-md-4">
+                    <label>Select Subject</label>
+                    <select id="SelectSubjectID" class="form-control col-md-6" name="SelectSubjectID" required />
+                </div>
             </div>
             <div class="card-footer">
 
@@ -51,9 +55,10 @@
         <div class="card-header py-3">
             <div class="row">
                 <div class="col-md-12">
-                    <label>Select Subject</label>
-                    <select id="SubjectID" class="form-control col-md-6" name="SubjectID" required/>
-                     <input type="text" id="txtsearch" name="txtsearch" class="form-control col-md-3" style="float:right" placeholder="Search" />
+                    <label>Marksheet Details</label>
+                    <input readonly type="text" value="No subject select" id="SubjectName" name="SubjectName" />
+                    <input type="number" value="0" style="display:none" id="SubjectID" name="SubjectID" />
+                    <input type="text" id="txtsearch" name="txtsearch" class="form-control col-md-3" style="float:right" placeholder="Search" />
                 </div>
             </div>
            
@@ -101,10 +106,13 @@
                                 </td>
 
                                 <td>
-                                    <input type="number" min="1" max="20" class="form-control" id="midtermmarks" name="midtermmarks " />
+                                    @Html.EditorFor(modelItem => item.ObtainMidTermMarks,new {htmlAttributes= new { @type = "number", @min = "1", @max = "20", @class = "form-control", @id = "item.ObtainMidTermMarks" } })
+                              
+                                  @*  <input type="number" class="form-control" id="midtermmarks" name="midtermmarks" />*@
                                 </td>
                                 <td>
-                                    <input type="number" min="1" max="80" class="form-control" id="finaltermmarks" name="finaltermmarks " />
+                                    @Html.EditorFor(modelItem => item.ObtainFinalTermMarks, new { htmlAttributes = new { @type = "number", @min = "1", @max = "80", @class = "form-control", @id = "item.ObtainFinalTermMarks" } })
+                                   @* <input type="number" class="form-control" id="finaltermmarks" name="finaltermmarks" />*@
                                 </td>
                             </tr>
                         }
@@ -187,51 +195,47 @@
                 url: '@Url.Action("GetProgram","StudentPromoteTables")',
                 type: 'GET',
                 data: { id: $(this).val() },
-                dataType:'Json',
+                dataType: 'Json',
                 success: function (response) {
-                 $("#ProgrammeID").append("<option value='0'>--select--</option>")
-                for (var i = 0; i < response.data.length; i++)
-                {
-                    $("#ProgrammeID").append("<option value=" + response.data[i].ProgrammeID + ">" + response.data[i].Name + "</option");
+                    $("#ProgrammeID").append("<option value='0'>--select--</option>")
+                    for (var i = 0; i < response.data.length; i++) {
+                        $("#ProgrammeID").append("<option value=" + response.data[i].ProgrammeID + ">" + response.data[i].Name + "</option");
+                    }
+                },
+                error: function () {
+
                 }
-            },
-            error: function () {
 
-            }
-
+            });
         });
 
 
-        })
+        $('#ProgrammeID').change(function () {
 
-
-            $('#ProgrammeID').change(function () {
-
-                $('#CurrentSemesterID').html('');
+            $('#CurrentSemesterID').html('');
 
 
             $.ajax({
                 url: '@Url.Action("GetSemesters","StudentPromoteTables")',
                 type: 'GET',
                 data: { id: $(this).val() },
-                dataType:'Json',
+                dataType: 'Json',
                 success: function (response) {
                     $("#CurrentSemesterID").append("<option value='0'>--select--</option>")
-                for (var i = 0; i < response.data.length; i++)
-                {
-                    $("#CurrentSemesterID").append("<option value=" + response.data[i].ProgrammeSemesterID + ">" + response.data[i].Description + "</option");
-                }
-            },
-            error: function () {
+                    for (var i = 0; i < response.data.length; i++) {
+                        $("#CurrentSemesterID").append("<option value=" + response.data[i].ProgrammeSemesterID + ">" + response.data[i].Description + "</option");
+                    }
+                },
+                error: function () {
 
-            }
+                }
+
+            });
+
 
         });
 
-
-        })
-
-        $('#CurrentSemesterID').change(function () {
+        @*$('#CurrentSemesterID').change(function () {
 
             $('#SubjectID').html('');
 
@@ -275,7 +279,51 @@
 
             }
 
-        });
+            });*@
 
+
+        //dsfffffffffffffffffffffffffffffffffffffffffffffffeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+
+            $('#CurrentSemesterID').change(function () {
+
+                $('#SelectSubjectID').html('');
+
+            $.ajax({
+                url: '@Url.Action("GetSemesterSubject","MarksEntry")',
+                type: 'GET',
+                data: { id: $(this).val() },
+                dataType: 'Json',
+                success: function (response) {
+                    $("#SelectSubjectID").append("<option value='0'>--select--</option>")
+                    for (var i = 0; i < response.data.length; i++) {
+                        $("#SelectSubjectID").append("<option value=" + response.data[i].SubjectSemesterID + ">" + response.data[i].Name + "</option");
+                    }
+                },
+                error: function () {
+                }
+                });
+            });
+            $('#SelectSubjectID').html('');
+            $.ajax({
+                url: '@Url.Action("GetSemesterSubject","MarksEntry")',
+                type: 'GET',
+                data: { id: $(this).val() },
+                dataType: 'Json',
+                success: function (response) {
+                    $("#SelectSubjectID").append("<option value='0'>--select--</option>")
+                    for (var i = 0; i < response.data.length; i++)
+                    {
+                        $("#SelectSubjectID").append("<option value=" + response.data[i].SubjectSemesterID + ">" + response.data[i].Name + "</option");
+                    }
+                },
+                error: function () {
+                }
+            });
+          $('#SelectSubjectID').change(function () {
+              $('#SubjectID').val($("#SelectSubjectID option:selected").val());
+              $('#SubjectName').val($("#SelectSubjectID option:selected").text());
+
+        });
     });
+   
 </script>
