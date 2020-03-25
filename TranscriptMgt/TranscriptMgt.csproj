@@ -139,6 +139,7 @@
     <Compile Include="Controllers\StudentTablesController.cs" />
     <Compile Include="Controllers\SubjectSemesterTablesController.cs" />
     <Compile Include="Controllers\SubjectTablesController.cs" />
+    <Compile Include="Controllers\TranscriptsController.cs" />
     <Compile Include="Controllers\UsersTablesController.cs" />
     <Compile Include="FileHelpers.cs" />
     <Compile Include="Global.asax.cs">
@@ -149,8 +150,12 @@
     <Compile Include="Models\ProgrammeMV.cs" />
     <Compile Include="Models\ProgrammeSemesterMV.cs" />
     <Compile Include="Models\SemesterSubjectMV.cs" />
+    <Compile Include="Models\SemesterSubjectTranscriptMV.cs" />
+    <Compile Include="Models\SemesterTranscriptMV.cs" />
     <Compile Include="Models\SessionMV.cs" />
     <Compile Include="Models\StudentPromoteMV.cs" />
+    <Compile Include="Models\StudentTranscriptMV.cs" />
+    <Compile Include="Models\TranscriptMV.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -365,6 +370,8 @@
     <Content Include="Content\StartupTemplate\vendors\owl-carousel\assets\owl.carousel.css" />
     <Content Include="Content\StartupTemplate\vendors\owl-carousel\owl.carousel.min.css" />
     <Content Include="Content\StartupTemplate\vendors\owl-carousel\owl.carousel.min.js" />
+    <Content Include="Content\stddefault.png" />
+    <Content Include="Content\unilogo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -515,6 +522,7 @@
     <Content Include="Views\StudentPromoteTables\PromoteStudent.cshtml" />
     <Content Include="Views\StudentPromoteTables\UnPromoteStudent.cshtml" />
     <Content Include="Views\MarksEntry\MarkSheet.cshtml" />
+    <Content Include="Views\Transcripts\GetTranscript.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
