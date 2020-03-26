@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Online Result";
+  
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Transcript</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body class="container">
+    <div class="container-fluid">
+
+
+        @using (Html.BeginForm("GetResult", "OnlineResult", FormMethod.Post, null))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="card">
+                <div class="card-header py-3">
+                    <h4 style="float:left">Enter your Registration</h4>
+                    <h4 style="float:right" class="text-danger">@Session["Message"]</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Student Reg No</label>
+                            <input class="form-control" id="regnumber" name="regnumber" required/>
+                        </div>
+                    
+                    </div>
+                    <div class="card-footer">
+
+                        <input style="float:right" type="submit" value="Get Result" class="btn btn-success" />
+
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+
+        </body>
+</html>

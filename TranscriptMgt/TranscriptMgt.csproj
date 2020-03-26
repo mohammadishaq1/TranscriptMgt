@@ -130,6 +130,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MarksEntryController.cs" />
     <Compile Include="Controllers\MarkSheetTablesController.cs" />
+    <Compile Include="Controllers\OnlineResultController.cs" />
     <Compile Include="Controllers\ProgrammeSemestersTablesController.cs" />
     <Compile Include="Controllers\ProgrammeTablesController.cs" />
     <Compile Include="Controllers\SemesterTablesController.cs" />
@@ -524,6 +525,7 @@
     <Content Include="Views\MarksEntry\MarkSheet.cshtml" />
     <Content Include="Views\Transcripts\GetTranscript.cshtml" />
     <Content Include="Views\Transcripts\GetAllStudent.cshtml" />
+    <Content Include="Views\OnlineResult\GetResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
