@@ -15,6 +15,8 @@
 </head>
 <body class="container">
     <div class="container-fluid">
+    </div><div>
+
         <table class="table table-borderless">
             <tr>
                 <td>
@@ -27,13 +29,11 @@
                     <h3>Official Transcript</h3>
                 </td>
                 <td>
-                    <img src="~/Content/stddefault.png" height="200" width="200" />
+                    <img src="@Url.Content(Model.Student.Photo)" height="200" width="200" />
                 </td>
             </tr>
         </table>
-        <h2 class="text-center">
-           Bachelor of computer Science
-        </h2>
+        <h2 class="text-center">@Model.Programe</h2>
         <table class="table table-bordered">
 
             <tr>
@@ -41,46 +41,110 @@
                     <table>
                         <tr>
                             <td>Name:</td>
-                            <td>Mohammad Ishaq</td>
+                            <td>@Model.Student.Name</td>
                         </tr>
                         <tr>
                             <td>Father Name:</td>
-                            <td>Mashuq</td>
+                            <td>@Model.Student.FatherName</td>
                         </tr>
                         <tr>
                             <td>Reg.No:</td>
-                            <td>210-1003022</td>
+                            <td>@Model.Student.RegNo</td>
                         </tr>
                         <tr>
                             <td>Enrol No:</td>
-                            <td>51245632</td>
+                            <td>@Model.Student.EnrollNo</td>
                         </tr>
                         <tr>
                             <td>Session:</td>
-                            <td>2010-2014</td>
+                            <td>@Model.Student.Session</td>
                         </tr>
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td colspan="9">1st Semester, Spring 2010</td>
-            </tr>
-            <tr style="background-color:lightgray"> 
-                <td>Course Code</td>
-                <td>Course Title</td>
-                <td>Total Marks</td>
-                <td>Obtained Marks</td>
-                <td>Grade</td>
-                <td>Grade</td>
-                <td>Value</td>
-                <td>Cr.Hrs</td>
-                <td>Grade Point</td>
-                <td>GPA</td>
-            </tr>
+
+            @{
+                bool headercreate = false;
+
+                foreach (TranscriptMgt.Models.SemesterTranscriptMV semester in Model.Semesters)
+                {
+                    <tr>
+                        <td colspan="9">@semester.SemesterTitle</td>
+                    </tr>
+                    if (headercreate == false)
+                    {
+
+                        <tr style="background-color:lightgray">
+                            <td>Course Code</td>
+                            <td>Course Title</td>
+                            <td>Total Marks</td>
+                            <td>Obtained Marks</td>
+                            <td>Grade</td>
+                            <td>Value</td>
+                            <td>Cr.Hrs</td>
+                            <td>Grade Point</td>
+                            <td>GPA</td>
+                        </tr>
+                    }
+
+                    for (int i = 0; i < semester.Subjects.Count; i++)
+                    {
+
+
+                        <tr>
+                            <td>@semester.Subjects[i].SubjectCode</td>
+                            <td>@semester.Subjects[i].CourseTitle</td>
+                            <td>@semester.Subjects[i].TotalMarks</td>
+                            <td>@semester.Subjects[i].ObtainedMarks</td>
+                            <td>@semester.Subjects[i].Grade</td>
+                            <td>@semester.Subjects[i].Value</td>
+                            <td>@semester.Subjects[i].CrHrs</td>
+                            <td>@semester.Subjects[i].GradePoint</td>
+
+                            @if (semester.Subjects.Count - 1 == i)
+                            {
+                                <td>@semester.GPA.ToString("F3")</td>
+                            }
+                        </tr>
+                        }
+                    }
+
+
+                }
+
+            @{
+                <tr style="background-color:lightgray">
+                    <td colspan="2">Total Marks</td>
+
+                    <td>@Model.TotalMarks</td>
+                    <td>@Model.ObtainMarks</td>
+                    <td>Percentage</td>
+                    <td colspan="2">@Model.Percentage</td>
+                    <td>CGPA</td>
+                    <td>@Model.CGPA.ToString("F3")</td>
+                </tr>
+            }
+             
         </table>
+    <div style="float:left">
+        <label>Disclaimer</label>
+        <p>Errors and omissions, if any are subject to subseqent reciftication</p>
+        <p>issue date: @DateTime.Now.ToString("MMMM dd yyyy")</p>
     </div>
+    <table>
+        <tr>
+            <td style="float:left">
+                <b class="text-center">Assistant contoller</b>
+                <b class="text-center">Assistant contoller 2</b>
+            </td>
+            <td style="float:right">
+                <b>Kardan Universty</b>
+                <b>Controller of examination</b>
+            </td>
+        </tr>
+    </table>
 
-
+    </div>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>

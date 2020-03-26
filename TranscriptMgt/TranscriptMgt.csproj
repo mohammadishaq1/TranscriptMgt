@@ -523,6 +523,7 @@
     <Content Include="Views\StudentPromoteTables\UnPromoteStudent.cshtml" />
     <Content Include="Views\MarksEntry\MarkSheet.cshtml" />
     <Content Include="Views\Transcripts\GetTranscript.cshtml" />
+    <Content Include="Views\Transcripts\GetAllStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,10 +11,10 @@ namespace TranscriptMgt.Models
         public string CourseTitle { get; set; }
         public int TotalMarks { get; set; }
         public int ObtainedMarks { get; set; }
-        public int Grade { get; set; }
-        public float Value { get; set; }
-        public float CrHrs { get; set; }
-        public float GradePoint { get; set; }
+        public string Grade { get; set; }
+        public double Value { get; set; }
+        public double CrHrs { get; set; }
+        public double GradePoint { get; set; }
 
     }
 }
