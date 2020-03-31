@@ -9,7 +9,6 @@ namespace TranscriptMgt.Models
     {
         public string SemesterTitle { get; set; }
         public List<SemesterSubjectTranscriptMV> Subjects { get; set; }
-      //  public List <SemesterSubjectTranscriptMV> Students { get; set; }
         public double GPA { get; set; }
     }
 }

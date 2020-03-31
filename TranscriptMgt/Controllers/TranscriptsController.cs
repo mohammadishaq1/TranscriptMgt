@@ -46,10 +46,13 @@ namespace TranscriptMgt.Controllers
             transcript.Programe = findstudent.ProgrammeTable.Name;
 
             var findmarksdetails = db.MarkSheetTables.Where(m => m.StudentID == findstudent.StudentID);
+
             List<SemesterTranscriptMV> semestersList = new List<SemesterTranscriptMV>();
             SemesterTranscriptMV semesters = new SemesterTranscriptMV();
             List<SemesterSubjectTranscriptMV> subjects = new List<SemesterSubjectTranscriptMV>();
+
             int checkprogramesemesterid = 0;
+
             foreach (MarkSheetTable marks in findmarksdetails)
             {
                 var findsemester = db.ProgrammeSemestersTables.Find(marks.ProgrammeSemesterID);
@@ -103,6 +106,7 @@ namespace TranscriptMgt.Controllers
                 var GP = value * crhrs;
                 subject.GradePoint = GP;
                 subject.Value = value;
+                subject.CrHrs = crhrs;
                 subject.Grade = GetGrade(obtainmarks);
                 TotalSemesterMarks = TotalSemesterMarks + totalmarks;
                 TotalSemesterObtainMarks = TotalSemesterObtainMarks + obtainmarks;
@@ -121,6 +125,7 @@ namespace TranscriptMgt.Controllers
             TotalSubjectGradePoints = TotalSubjectGradePoints + totalgradepoints;
             TotalSubjectsCrHrs = TotalSubjectsCrHrs + totalcrhrss;
             semesters.GPA = (totalgradepoints / totalcrhrss);
+        
             semestersList.Add(semesters);
 
 
