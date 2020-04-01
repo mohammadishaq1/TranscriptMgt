@@ -28,6 +28,13 @@ namespace TranscriptMgt.Controllers
             double TotalSubjectGradePoints = 0;
             double TotalSubjectsCrHrs = 0;
 
+
+
+
+
+
+            ///To find student and map the Basic info from database to Model View Transcript MV
+
             var findstudent = db.StudentTables.Where(s => s.Reg_No == regno.Trim()).FirstOrDefault();
             if (findstudent == null)
             {
@@ -45,6 +52,18 @@ namespace TranscriptMgt.Controllers
             transcript.Student = student;
             transcript.Programe = findstudent.ProgrammeTable.Name;
 
+
+
+
+
+
+
+
+
+
+
+            // to find student marks based on the ID
+
             var findmarksdetails = db.MarkSheetTables.Where(m => m.StudentID == findstudent.StudentID);
 
             List<SemesterTranscriptMV> semestersList = new List<SemesterTranscriptMV>();
@@ -60,7 +79,7 @@ namespace TranscriptMgt.Controllers
                 {
                     checkprogramesemesterid = marks.ProgrammeSemesterID;
                     semesters = null;
-                  
+
                     semesters = new SemesterTranscriptMV();
                     subjects = null;
                     subjects = new List<SemesterSubjectTranscriptMV>();
@@ -113,6 +132,14 @@ namespace TranscriptMgt.Controllers
                 subjects.Add(subject);
                 checkprogramesemesterid = marks.ProgrammeSemesterID;
             }
+
+
+
+
+
+
+
+
 
             semesters.Subjects = subjects;
             double totalcrhrss = 0;
